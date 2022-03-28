@@ -6,6 +6,30 @@
     width: 800px;
 }
 
+.formulario{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+}
+
+.formulario input{
+    flex: 1;
+    border: 1px solid cornflowerblue;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 17px;
+}
+ .botao{
+    border: 0;
+    border-radius: 4px;
+    margin-left: 10px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+
 .lista-personagens{
     margin: 15px;
 }

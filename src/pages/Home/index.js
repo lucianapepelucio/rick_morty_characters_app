@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BsSearch } from 'react-icons/bs'; 
 import './home.css';
 import api from '../../services/api';
 import { Link } from 'react-router-dom';
@@ -19,6 +20,15 @@ export default function Home() {
 
   return (
     <div className="container">
+
+      <form className= "formulario" onSubmit={()=>{}}>
+        <input type="text" placeholder="Digite o nome do personagem" />
+
+        <button className="botao">
+          <BsSearch color="black" size={14}/>
+        </button>
+      </form>
+
       <div className="lista-personagens">
         {personagens.map((personagem) => {
           return(
