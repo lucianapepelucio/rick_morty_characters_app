@@ -10,7 +10,6 @@ export default function Home() {
 
     async function loadPersonagens(){
       const response = await api.get('api/character')
-      //console.log(response.data.results);
       setPersonagens(response.data.results);
     }
 
@@ -26,7 +25,7 @@ export default function Home() {
             <article key={personagem.id}>
               <strong> {personagem.name}</strong>
               <img src={personagem.image} alt={personagem.name} />
-              <Link to="/">Acessar</Link>
+              <Link to={`/character/${personagem.id}`}>Acessar</Link>
             </article>
           )
         })}
