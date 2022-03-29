@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { BsSearch } from 'react-icons/bs'; 
+import { FaSpinner } from 'react-icons/fa';
 import './home.css';
 import api from '../../services/api';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,8 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   const [personagens, setPersonagens] = useState([]);
   const [newPersonagem, setNewPersonagem] = useState('');
+  const [listaPersonagem, setListaPersonagem] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
 
@@ -23,21 +26,35 @@ export default function Home() {
     e.preventDefault();
 
     async function submit(){
-      const response = await api.get(`api/character/${newPersonagem}`);
+      setLoading(true);
 
-      console.log(response.data.results); // não retorna nada, verificar
+      try{
+        const response = await api.get(`api/character/?name=${newPersonagem}`);
 
-      if(newPersonagem !== response.data.results){
-        alert('Personagem não encontrado, digite o nome correto, por favor!');
+        console.log(response.data.results);
+
+        const data = {
+          name: response.data.results.name,
+        }
+
+        setListaPersonagem([...listaPersonagem, data]);
         setNewPersonagem('');
-      }
 
-      setNewPersonagem('');
+        }
+        catch(error){
+          alert('Personagem não encontrado, digite o nome correto, por favor!');
+          setNewPersonagem('');
+          console.log(error);
+        }
+        finally{
+          setLoading(false);
+          setNewPersonagem('');
+        }
     }
 
     submit();
 
-  }, [newPersonagem]);
+  }, [newPersonagem, listaPersonagem]);
 
   function handleInputChange(e){
     setNewPersonagem(e.target.value);
@@ -54,8 +71,14 @@ export default function Home() {
         onChange={handleInputChange}
         />
 
-        <button className="botao" type="submit">
-          <BsSearch color="black" size={14}/>
+        <button className="botao" type="submit" loading={loading}>
+          {
+            loading ? (
+              <FaSpinner color="black" size={14}/>
+            ) : (
+              <BsSearch color="black" size={14}/>
+            )
+          }
         </button>
       </form>
 

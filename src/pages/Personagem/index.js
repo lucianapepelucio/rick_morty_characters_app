@@ -14,19 +14,16 @@ export default function Personagem(){
       async function loadPersonagem(){
           const response = await api.get(`api/character/${id}`);
 
-          if(response.data.id === false){     //Com erro - response.data.length === 0
+          setPersonagem(response.data);
+
+          if(response.data === 0){     //Não está funcionando, rever 
             history.replace("/");
             return;
           }
 
-          setPersonagem(response.data);
           setLoading(false);
       }
       loadPersonagem();
-
-      return () => {
-          console.log('Componente Desmontado');
-      }
 
     },[history, id]);
 
