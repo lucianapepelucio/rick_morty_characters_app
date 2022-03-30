@@ -10,6 +10,7 @@ export default function Home() {
   const [newPersonagem, setNewPersonagem] = useState('');
   const [listaPersonagem, setListaPersonagem] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [pageNumber, setPageNumber] = useState('');
 
   useEffect(() => {
 
@@ -29,17 +30,23 @@ export default function Home() {
       setLoading(true);
 
       try{
-        const response = await api.get(`api/character/?name=${newPersonagem}`);
+
+        if(newPersonagem === ''){
+          throw new Error('Você precisa digitar o nome do personagem!');
+        }
+
+        const response = await api.get(`api/character/?page=${pageNumber}&name=${newPersonagem}`);
 
         console.log(response.data.results);
 
-        const data = {
-          name: response.data.results.name,
+        const listaPersonagem = {
+          name: response.data.results,
         }
 
-        setListaPersonagem([...listaPersonagem, data]);
-        setNewPersonagem('');
+        setListaPersonagem(listaPersonagem);
+        console.log('listapersonagem: ', listaPersonagem);
 
+        setNewPersonagem('');
         }
         catch(error){
           alert('Personagem não encontrado, digite o nome correto, por favor!');

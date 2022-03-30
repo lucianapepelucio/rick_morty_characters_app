@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './personagem-info.css';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 
 export default function Personagem(){
     const {id} = useParams();
-    const history = useHistory();
 
     const [personagem, setPersonagem] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,16 +15,12 @@ export default function Personagem(){
 
           setPersonagem(response.data);
 
-          if(response.data === 0){     //Não está funcionando, rever 
-            history.replace("/");
-            return;
-          }
-
           setLoading(false);
       }
+
       loadPersonagem();
 
-    },[history, id]);
+    },[id]);
 
     if(loading){
       return(
