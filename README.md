@@ -2,7 +2,7 @@
 
 - [x] Criar uma aplicação React 
 - [x] Listar na tela as fotos e nome dos personagens ao carregar a página (com a API https://rickandmortyapi.com/api/character) 
-- [ ] Adicionar um input e fazer a busca pelo name 
+- [x] Adicionar um input e fazer a busca pelo name 
 - [x] Adicionar rota para as páginas /characters e rota /character/:id 
 - [ ] Adicionar paginação 
 - [ ] Criar um componente Preview quando clicar no thumb do character, carregar as informações
