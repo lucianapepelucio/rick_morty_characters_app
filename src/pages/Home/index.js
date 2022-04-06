@@ -1,105 +1,111 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { BsSearch } from 'react-icons/bs'; 
-import { FaSpinner } from 'react-icons/fa';
-import './styles.css';
+import React, { useEffect, useState } from 'react';
+//import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import { Link } from 'react-router-dom';
+import './styles.css';
 
 export default function Home() {
-  const [personagens, setPersonagens] = useState([]);
-  const [newPersonagem, setNewPersonagem] = useState('');
-  const [listaPersonagem, setListaPersonagem] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [nameCharacter, setNameCharacter] = useState('');
   const [pageNumber, setPageNumber] = useState('');
+  const [item, setItem] = useState([]);
+
+  //const [personagens, setPersonagens] = useState([]);
+  //const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    if (nameCharacter) {
+      setItem([]);
+      console.log(nameCharacter);
+      api.get(`/api/character/?page=${pageNumber}&name=${nameCharacter}`)
+        .then((response) => {
+          setItem(response.data);
+          console.log(response.data);
+        })
+    }
+  }, [pageNumber, nameCharacter]);
 
   useEffect(() => {
-
-    async function loadPersonagens(){
-      const response = await api.get('api/character')
-      setPersonagens(response.data.results);
-    }
-
-    loadPersonagens();
-
+    setPageNumber('');
   }, []);
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
+  // useEffect(() => {
 
-    async function submit(){
-      setLoading(true);
+  //   async function loadPersonagens(){
+  //     const response = await api.get('api/character')
+  //     setPersonagens(response.data.results);
+  //   }
 
-      try{
+  //   loadPersonagens();
 
-        if(newPersonagem === ''){
-          throw new Error('Você precisa digitar o nome do personagem!');
-        }
+  // }, []);
 
-        const response = await api.get(`api/character/?page=${pageNumber}&name=${newPersonagem}`);
+  // const handleSubmit = useCallback((e) => {
+  //   e.preventDefault();
 
-        console.log(response.data.results);
+  //   async function submit(){
+  //     setLoading(true);
 
-        const listaPersonagem = {
-          name: response.data.results,
-        }
+  //     try{
 
-        setListaPersonagem(listaPersonagem);
-        console.log('listapersonagem: ', listaPersonagem);
+  //       if(displayValue === ''){
+  //         throw new Error('Você precisa digitar o nome do personagem!');
+  //       }
 
-        setNewPersonagem('');
-        }
-        catch(error){
-          alert('Personagem não encontrado, digite o nome correto, por favor!');
-          setNewPersonagem('');
-          console.log(error);
-        }
-        finally{
-          setLoading(false);
-          setNewPersonagem('');
-        }
-    }
+  //       const response = await api.get(`api/character/?page=${pageNumber}&name=${displayValue}`);
 
-    submit();
+  //       console.log(response.data.results);
 
-  }, [newPersonagem, pageNumber]);
+  //       setDisplayValue('');
+  //       }
+  //       catch(error){
+  //         alert('Personagem não encontrado, digite o nome correto, por favor!');
+  //         setDisplayValue('');
+  //         console.log(error);
+  //       }
+  //       finally{
+  //         setLoading(false);
+  //         setDisplayValue('');
+  //       }
+  //   }
 
-  function handleInputChange(e){
-    setNewPersonagem(e.target.value);
+  //   submit();
+
+  // }, [displayValue, pageNumber]);
+
+  function handleChange(e){
+    setNameCharacter(e.target.value);
   }
 
   return (
     <div className="container">
-
-      <form className= "formulario" onSubmit={handleSubmit}> 
-        <input 
-        type="text" 
-        placeholder="Digite o nome do personagem" 
-        value={newPersonagem}
-        onChange={handleInputChange}
+      <div>
+        <input
+          className="character-input"
+          type="search"
+          placeholder="Digite o nome do personagem" 
+          value={nameCharacter} 
+          onChange={handleChange} 
+          //loading={loading}
         />
-
-        <button className="botao" type="submit" loading={loading}>
-          {
-            loading ? (
-              <FaSpinner color="black" size={14}/>
-            ) : (
-              <BsSearch color="black" size={14}/>
-            )
-          }
-        </button>
-      </form>
-
-      <div className="lista-personagens">
-        {personagens.map((personagem) => {
-          return(
-            <article key={personagem.id}>
-              <strong> {personagem.name}</strong>
-              <img src={personagem.image} alt={personagem.name} />
-              <Link to={`/character/${personagem.id}`}>Acessar</Link>
-            </article>
-          )
-        })}
+      </div>
+      <div className="characters-list">
+        {nameCharacter && !item.results && (
+            <span>Carregando...</span>
+          )}
+        {item.results && (
+          <ul>
+            {item.results.map((character) => (
+              <li key={character.id}>
+                <img src={character.image} alt={character.name}/>
+                <strong>{character.name}</strong>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
 }
+
+//<Link to={`/character/${personagem.id}`}>Acessar</Link>
+
+  

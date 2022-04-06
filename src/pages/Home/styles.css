@@ -6,35 +6,32 @@
     width: 800px;
 }
 
-.formulario{
+.character-input{
     margin-top: 20px;
     display: flex;
-    flex-direction: row;
     width: 800px;
-}
-
-.formulario input{
     flex: 1;
     border: 1px solid cornflowerblue;
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 17px;
 }
- .botao{
-    border: 0;
-    border-radius: 4px;
-    margin-left: 10px;
-    padding: 0 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
- }
 
-.lista-personagens{
+.characters-list{
     margin: 15px;
 }
 
-.lista-personagens article{
+.characters-list ul{
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(200px, 1fr)
+    );
+    list-style: none;
+    grid-gap: 1.5rem;
+}
+
+.characters-list li{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,25 +42,14 @@
     border-radius: 5px;
 }
 
-.lista-personagens strong{
+.characters-list img{
+    width: 500px;
+    max-height: 350px;
+    max-width: 100%;
+}
+
+.characters-list strong{
     padding-bottom: 15px;
     font-size: 22px;
 }
 
-.lista-personagens img{
-    width: 500px;
-    max-height: 350px;
-}
-
-.lista-personagens article a{
-    text-decoration: none;
-    color: #FFF;
-    background-color: cornflowerblue;
-    font-size: 25px;
-    width: 100%;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
