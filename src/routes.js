@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 
 import Home from './pages/Home';
-import Personagem from './pages/Personagem';
-import Erro from './pages/Erro';
+import Character from './pages/Character';
+import Error from './pages/Error';
 
 const Routes = () => {
     return(
@@ -12,8 +12,8 @@ const Routes = () => {
             <Header/>
             <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/character/:id" component={Personagem} />
-                <Route path="*" component={Erro} />
+                <Route exact path="/character/:id" component={Character} />
+                <Route path="*" component={Error} />
             </Switch>
         </BrowserRouter>
     )

@@ -1,12 +1,11 @@
 import React from 'react';
-import './header.css';
+import './styles.css';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
     return (
       <header>
-        <Link className="logo" to="/">Rick and Morty Characters</Link>
-        <Link className="favoritos" to="/favoritos">Salvos</Link>
+        <Link className="title" to="/">Rick and Morty Characters</Link>
       </header>
     );
   }

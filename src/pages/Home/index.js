@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { BsSearch } from 'react-icons/bs'; 
 import { FaSpinner } from 'react-icons/fa';
-import './home.css';
+import './styles.css';
 import api from '../../services/api';
 import { Link } from 'react-router-dom';
 
@@ -61,7 +61,7 @@ export default function Home() {
 
     submit();
 
-  }, [newPersonagem, listaPersonagem]);
+  }, [newPersonagem, pageNumber]);
 
   function handleInputChange(e){
     setNewPersonagem(e.target.value);

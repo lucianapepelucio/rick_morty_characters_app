@@ -5,7 +5,7 @@
 - [ ] Adicionar um input e fazer a busca pelo name 
 - [x] Adicionar rota para as páginas /characters e rota /character/:id 
 - [ ] Adicionar paginação 
-- [ ] Criar um componente Preview quando clicar no thumb do character, carregar as informações por Context API 
+- [ ] Criar um componente Preview quando clicar no thumb do character, carregar as informações
  
 
 # Getting Started with Create React App

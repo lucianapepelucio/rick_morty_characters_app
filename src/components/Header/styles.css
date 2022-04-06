@@ -7,19 +7,9 @@ header {
     background-color: cornflowerblue;
 }
 
-.logo {
+.title {
     text-decoration: none;
     font-size: 30px;
     color: #FFF;
     cursor: pointer;
-}
-
-.favoritos {
-    cursor: pointer;
-    text-decoration: none;
-    background-color: #FFF;
-    border-radius: 5px;
-    padding: 5px;
-    font-weight: bold;
-    color: #000;
 }

@@ -1,0 +1,10 @@
+.character-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 900px;
+}
+
+.character-info img{
+    border-radius: 20px;
+}
