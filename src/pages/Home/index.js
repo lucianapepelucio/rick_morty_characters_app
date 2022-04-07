@@ -21,14 +21,21 @@ export default function Home() {
       })
   }, [pageNumber, search]);
 
-  function handleChange(e){
-    e.preventDefault();
-    setSearch(e.target.value);
+  let timeout;
+  
+  const handleChange = e => {
+    clearTimeout(timeout);
+    const searchValue = e.target.value;
+    
+    timeout = setTimeout(() => {
+        setSearch(searchValue);
+        console.log(searchValue);
+    },1000)
   }
 
   const handlePageClick = (selectedPage) => {
     setPageNumber(selectedPage.selected + 1);
-  };
+  } 
 
   return (
     <div className="container">
@@ -37,8 +44,8 @@ export default function Home() {
           className="character-input"
           type="search"
           placeholder="Digite o nome do personagem" 
-          value={search} 
-          onChange={handleChange} 
+          //value={search} 
+          onChange= {handleChange}
         />
       </div>
       <div className="characters-list">
@@ -62,14 +69,15 @@ export default function Home() {
       <ReactPaginate
         className="pagination"
         breakLabel="..."
-        nextLabel="<next>"
+        nextLabel="Next"
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount= {pageInfo.pages}
-        previousLabel="<previous>"
+        previousLabel="Previous"
         renderOnZeroPageCount={null}
       />
     </div>
+  
   )
 }
 

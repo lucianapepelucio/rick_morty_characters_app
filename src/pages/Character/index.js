@@ -1,21 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 export default function Character(){
     const {id} = useParams();
-
     const [character, setCharacter] = useState([]);
     const [loading, setLoading] = useState(true);
+    let history = useHistory();
 
     useEffect(() => {
       async function loadCharacter(){
-          const response = await api.get(`api/character/${id}`);
+          try{
+            const response = await api.get(`api/character/${id}`);
 
-          setCharacter(response.data);
+            setCharacter(response.data);
 
-          setLoading(false);
+            setLoading(false);
+          }
+          catch(error){
+            console.log('Deeu erro', error);
+            
+
+            history.push('/404');
+          }
+
+        //   if(!response.data){
+        //    //redicionar para a page 404
+         
+        //   }
+          
       }
 
       loadCharacter();
