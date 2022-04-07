@@ -1,35 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 import api from '../../services/api';
-import Pagination from '../../components/Pagination';
 import './styles.css';
 
-const LIMIT = 12;
-
 export default function Home() {
-  const [nameCharacter, setNameCharacter] = useState('');
-  const [pageNumber, setPageNumber] = useState('');
-  const [item, setItem] = useState([]);
-  const [skip, setSkip] = useState(0);
-
+  const [search, setSearch] = useState('');
+  const [characterList, setCharacterList] = useState([]);
+  const [pageNumber, setPageNumber] = useState();
+  const [pageInfo, setPageInfo] = useState({});
+  
   useEffect(() => {
-    setItem([]);
-    console.log(nameCharacter);
-    api.get(`/api/character/?page=${pageNumber}&name=${nameCharacter}`)
+    setCharacterList([]);
+    console.log(search);
+    api.get(`/api/character/?page=${pageNumber}&name=${search}`)
       .then((response) => {
-        setItem(response.data);
-        console.log(response.data);
+        setCharacterList(response.data.results);
+        setPageInfo(response.data.info);
+        console.log(response.data.results);
       })
-  }, [pageNumber, nameCharacter]);
-
-  useEffect(() => {
-    setPageNumber('');
-  }, []);
+  }, [pageNumber, search]);
 
   function handleChange(e){
     e.preventDefault();
-    setNameCharacter(e.target.value);
+    setSearch(e.target.value);
   }
+
+  const handlePageClick = (selectedPage) => {
+    setPageNumber(selectedPage.selected + 1);
+  };
 
   return (
     <div className="container">
@@ -38,40 +37,41 @@ export default function Home() {
           className="character-input"
           type="search"
           placeholder="Digite o nome do personagem" 
-          value={nameCharacter} 
+          value={search} 
           onChange={handleChange} 
         />
       </div>
       <div className="characters-list">
-        {nameCharacter && !item.results && (
-          <span>Carregando...</span>
-        )}
-        {item.results && (
-          <ul>
-            {item.results.map((character) => (
-              <li key={character.id}>
-                <Link to={`/character/${character.id}`}>
-                  <img src={character.image} alt={character.name}/>
-                </Link>
-                <strong>{character.name}</strong>
-              </li>
-            ))}
-          </ul>
-        )}
+          {!characterList && (
+            <span>Carregando....</span>
+          )}
+          {characterList && (
+            <ul>
+              {characterList.map((character) => (
+                <li key={character.id}>
+                  <Link to={`/character/${character.id}`}>
+                    <img src={character.image} alt={character.name}/>
+                  </Link>
+                  <strong>{character.name}</strong>
+                </li>
+              ))}
+            </ul>
+          )}
       </div>
-      {item.info && (
-        <Pagination 
-          limit={LIMIT} 
-          total={item.info.count} 
-          skip={skip}
-          setSkip={setSkip}
-        />
-      )}
+     
+      <ReactPaginate
+        className="pagination"
+        breakLabel="..."
+        nextLabel="<next>"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount= {pageInfo.pages}
+        previousLabel="<previous>"
+        renderOnZeroPageCount={null}
+      />
     </div>
   )
 }
-
-
 
 
   
