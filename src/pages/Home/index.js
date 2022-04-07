@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import api from '../../services/api';
+import { useStatesContext } from '../../context/character';
 import './styles.css';
 
 export default function Home() {
-  const [search, setSearch] = useState('');
-  const [characterList, setCharacterList] = useState([]);
-  const [pageNumber, setPageNumber] = useState();
-  const [pageInfo, setPageInfo] = useState({});
+  // const [search, setSearch] = useState('');
+  // const [characterList, setCharacterList] = useState([]);
+  // const [pageNumber, setPageNumber] = useState();
+  // const [pageInfo, setPageInfo] = useState({});
+
+  const { search, setSearch, characterList, setCharacterList, pageNumber, setPageNumber, pageInfo, setPageInfo} = useStatesContext();
   
   useEffect(() => {
     setCharacterList([]);
@@ -44,7 +47,6 @@ export default function Home() {
           className="character-input"
           type="search"
           placeholder="Digite o nome do personagem" 
-          //value={search} 
           onChange= {handleChange}
         />
       </div>

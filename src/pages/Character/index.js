@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import { useParams, useHistory } from 'react-router-dom';
+import { useStatesContext } from '../../context/character';
 import api from '../../services/api';
 
 export default function Character(){
     const {id} = useParams();
-    const [character, setCharacter] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [character, setCharacter] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    const { character, setCharacter, loading, setLoading} = useStatesContext();
     let history = useHistory();
 
     useEffect(() => {
@@ -19,22 +21,13 @@ export default function Character(){
             setLoading(false);
           }
           catch(error){
-            console.log('Deeu erro', error);
-            
-
             history.push('/404');
           }
-
-        //   if(!response.data){
-        //    //redicionar para a page 404
-         
-        //   }
-          
       }
 
       loadCharacter();
 
-    },[id]);
+    },[id, history]);
 
     if(loading){
       return(
