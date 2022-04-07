@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
+import Pagination from '../../components/Pagination';
 import './styles.css';
+
+const LIMIT = 12;
 
 export default function Home() {
   const [nameCharacter, setNameCharacter] = useState('');
   const [pageNumber, setPageNumber] = useState('');
   const [item, setItem] = useState([]);
+  const [skip, setSkip] = useState(0);
 
   useEffect(() => {
     setItem([]);
@@ -15,10 +19,6 @@ export default function Home() {
       .then((response) => {
         setItem(response.data);
         console.log(response.data);
-
-        // if(response.data.length === 0){
-        //   console.log('Não Tem coisa!');
-        // }
       })
   }, [pageNumber, nameCharacter]);
 
@@ -27,8 +27,8 @@ export default function Home() {
   }, []);
 
   function handleChange(e){
-    setNameCharacter(e.target.value);
     e.preventDefault();
+    setNameCharacter(e.target.value);
   }
 
   return (
@@ -59,6 +59,14 @@ export default function Home() {
           </ul>
         )}
       </div>
+      {item.info && (
+        <Pagination 
+          limit={LIMIT} 
+          total={item.info.count} 
+          skip={skip}
+          setSkip={setSkip}
+        />
+      )}
     </div>
   )
 }
