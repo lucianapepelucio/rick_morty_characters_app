@@ -8,11 +8,12 @@
 }
 
 .character-input{
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     width: 800px;
     flex: 1;
     border: 1px solid cornflowerblue;
+    background-color:#FBE7C6;
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 17px;
@@ -37,27 +38,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #FFF;
     margin: 15px;
     padding: 15px;
     border-radius: 5px;
 }
 
 .characters-list img{
-    width: 500px;
+    width: 400px;
     max-height: 350px;
     max-width: 100%;
+    border-radius: 5px;
 }
 
 .characters-list strong{
     color: black;
-    /* background-color: cornflowerblue;
-    font-size: 25px;
-    width: 100%;
-    text-align: center;
     padding: 10px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px; */
 }
 
 .pagination {
@@ -74,12 +69,10 @@
     border: 0;
     background-color: cornflowerblue;
     border-radius: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
     color: #FFF;
     font-weight: bold;
+    cursor: pointer
 }
 
 .pagination li a:hover{
@@ -91,3 +84,4 @@
     background-color: black;
     color:#FFF;
 }
+
