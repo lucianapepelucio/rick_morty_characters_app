@@ -60,19 +60,19 @@ export default function Home() {
           </ul>
         )}
       </div>
-     
-     <div className="pagination-container">
-       <ReactPaginate
-          className="pagination"
-          breakLabel="..."
-          nextLabel="Next"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
-          pageCount= {pageInfo.pages}
-          previousLabel="Previous"
-          renderOnZeroPageCount={null}
-        />
-     </div>
+      <div className="pagination-container">
+        <ReactPaginate
+            className="pagination"
+            breakLabel="..."
+            nextLabel="Next"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={1}
+            marginPagesDisplayed="1"
+            pageCount= {pageInfo.pages}
+            previousLabel="Previous"
+            renderOnZeroPageCount={null}
+          />
+      </div>
       
     </div>
   )
