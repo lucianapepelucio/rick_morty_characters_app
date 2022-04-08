@@ -16,7 +16,7 @@ export default function Home() {
         setCharacterList(response.data.results);
         setPageInfo(response.data.info);
       })
-  }, [pageNumber, search]);
+  }, [pageNumber, search, setCharacterList, setPageInfo]);
 
   let timeout;
   
@@ -66,7 +66,7 @@ export default function Home() {
         breakLabel="..."
         nextLabel="Next"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         pageCount= {pageInfo.pages}
         previousLabel="Previous"
         renderOnZeroPageCount={null}
